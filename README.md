@@ -14,4 +14,4 @@ The project has no dependencies.
 
 ## Entries
 
-- [Day One](docs/day_01.md)
+- [Day One](docs/day1.md)
