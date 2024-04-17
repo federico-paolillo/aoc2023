@@ -31,10 +31,18 @@ func (inputDataScanner *InputDataScanner) Scan() (string, error) {
 	return "", bufioErr
 }
 
-func NewFileInputDataScanner(r io.Reader) *InputDataScanner {
-
+func NewInputDataScanner(r io.Reader) *InputDataScanner {
 	innerScanner := bufio.NewScanner(r)
 
 	return &InputDataScanner{innerScanner}
+}
 
+func NewFileInputDataScanner(inputDataName string, inputDataBasePath string) (*InputDataScanner, error) {
+	day1ExampleDataFile, openErr := OpenInputData(inputDataName, inputDataBasePath)
+
+	if openErr != nil {
+		return nil, openErr
+	}
+
+	return NewInputDataScanner(day1ExampleDataFile), nil
 }

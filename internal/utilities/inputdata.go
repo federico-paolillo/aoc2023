@@ -5,27 +5,11 @@ import (
 	"path/filepath"
 )
 
-const AssetsBasePathEnvVar = "AOC2023_ASSETS_BASE"
-const AssetsBasePathDefault = "../../assets"
 const InputDataExtensions = ".txt"
 
-func getAssetsBasePathOrDefault() string {
-
-	maybeBasePathInEnvVar := os.Getenv(AssetsBasePathEnvVar)
-
-	if maybeBasePathInEnvVar == "" {
-		return AssetsBasePathDefault
-	}
-
-	return AssetsBasePathDefault
-
-}
-
-func getInputDataFilePath(inputDataName string) (string, error) {
-
+func getInputDataFilePath(inputDataName string, basePath string) (string, error) {
 	inputDataFileName := inputDataName + InputDataExtensions
-	inputDataAssetsBasePath := getAssetsBasePathOrDefault()
-	inputDataFilePath := filepath.Join(inputDataAssetsBasePath, inputDataFileName)
+	inputDataFilePath := filepath.Join(basePath, inputDataFileName)
 
 	inputDataAbsFilePath, absErr := filepath.Abs(inputDataFilePath)
 
@@ -36,9 +20,8 @@ func getInputDataFilePath(inputDataName string) (string, error) {
 	return inputDataAbsFilePath, nil
 }
 
-func OpenInputData(inputDataName string) (*os.File, error) {
-
-	inputDataFilePath, pathErr := getInputDataFilePath(inputDataName)
+func OpenInputData(inputDataName string, inputDataBasePath string) (*os.File, error) {
+	inputDataFilePath, pathErr := getInputDataFilePath(inputDataName, inputDataBasePath)
 
 	if pathErr != nil {
 		return nil, pathErr

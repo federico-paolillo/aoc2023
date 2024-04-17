@@ -12,7 +12,7 @@ func TestScannerScanLinesUntilEOF(t *testing.T) {
 
 	stringReader := strings.NewReader("line1\nline2\nline3\n")
 
-	scanner := utilities.NewFileInputDataScanner(stringReader)
+	scanner := utilities.NewInputDataScanner(stringReader)
 
 	expectations := []struct {
 		line string
